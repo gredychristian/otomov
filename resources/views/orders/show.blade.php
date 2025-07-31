@@ -104,10 +104,19 @@
 
                     {{-- Tombol Unduh Invoice --}}
                     <div class="mt-8 text-center">
-                        <a href="{{ route('orders.invoice', $order->id) }}"
-                            class="inline-block bg-sky-600 border border-transparent rounded-md py-2 px-6 text-base font-medium text-white hover:bg-sky-700">
-                            Unduh Invoice
-                        </a>
+                        @if (Auth::user()->is_admin)
+                            {{-- Jika yang login adalah admin, arahkan ke rute admin --}}
+                            <a href="{{ route('admin.orders.invoice', $order->id) }}"
+                                class="inline-block bg-sky-600 border border-transparent rounded-md py-2 px-6 text-base font-medium text-white hover:bg-sky-700">
+                                Unduh Invoice
+                            </a>
+                        @else
+                            {{-- Jika pengguna biasa, arahkan ke rute biasa --}}
+                            <a href="{{ route('orders.invoice', $order->id) }}"
+                                class="inline-block bg-sky-600 border border-transparent rounded-md py-2 px-6 text-base font-medium text-white hover:bg-sky-700">
+                                Unduh Invoice
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

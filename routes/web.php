@@ -49,19 +49,14 @@ Route::middleware('auth')->group(function () {
 });
 
 // RUTE ADMIN
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('products', ProductController::class);
-    Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
-    Route::patch('orders/{order}', [AdminOrderController::class, 'update'])->name('orders.update');
-    Route::delete('orders/{order}', [AdminOrderController::class, 'destroy'])->name('orders.destroy');
-});
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class);
     Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::patch('orders/{order}', [AdminOrderController::class, 'update'])->name('orders.update');
     Route::delete('orders/{order}', [AdminOrderController::class, 'destroy'])->name('orders.destroy');
-    Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show'); // <-- TAMBAHKAN INI
+    Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+    Route::get('orders/{order}/invoice', [AdminOrderController::class, 'downloadInvoice'])->name('orders.invoice');
 });
 
 require __DIR__ . '/auth.php';
